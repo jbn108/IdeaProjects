@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="274.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <ComboBox fx:id="conversionType" layoutX="16.0" layoutY="137.0" prefHeight="27.0" prefWidth="161.0" />
+      <TextField fx:id="unitInput" layoutX="16.0" layoutY="78.0" promptText="Enter units to convert" />
+      <TextField fx:id="unitOutput" layoutX="16.0" layoutY="198.0" />
+      <Label layoutX="16.0" layoutY="14.0" prefHeight="36.0" prefWidth="161.0" text="Unit Conversion">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="20.0" layoutY="120.0" text="Conversion Type" />
+      <Label layoutX="16.0" layoutY="181.0" text="Result" />
+      <Label layoutX="16.0" layoutY="61.0" prefHeight="17.0" prefWidth="50.0" text="Input" />
+      <Button layoutX="198.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleInput" text="Convert" />
+   </children>
+</AnchorPane>

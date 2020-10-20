@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="329.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <Button layoutX="215.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleQuestion" text="Next" />
+      <TextField fx:id="txtField" layoutX="23.0" layoutY="281.0" prefHeight="27.0" prefWidth="192.0" />
+      <Label layoutX="23.0" layoutY="264.0" text="Result:" />
+      <VBox layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="233.0">
+         <children>
+            <Label fx:id="pageLabel" text="Page 1:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="qTopLabel" text="Question 1:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <RadioButton fx:id="bOneOne" mnemonicParsing="false" text="1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grp1" />
+               </toggleGroup>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="bOneTwo" mnemonicParsing="false" text="2" toggleGroup="$grp1">
+               <padding>
+                  <Insets bottom="3.0" left="5.0" top="3.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="bOneThree" mnemonicParsing="false" text="3" toggleGroup="$grp1">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </RadioButton>
+            <Label fx:id="qBottomLabel" text="Question 2:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Label>
+            <RadioButton fx:id="bTwoOne" mnemonicParsing="false" text="1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grp2" />
+               </toggleGroup>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="bTwoTwo" mnemonicParsing="false" text="2" toggleGroup="$grp2">
+               <padding>
+                  <Insets bottom="3.0" left="5.0" top="3.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="bTwoThree" mnemonicParsing="false" text="3" toggleGroup="$grp2">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </RadioButton>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -17,8 +17,10 @@ public class Main {
         //stringUtils.printReverse(input);
         //stringUtils.containsAndSubstitute(input);
         //stringUtils.palindrome(input);
-        stringUtils.alternateCaps(input);
-
+        System.out.println(stringUtils.alternateCaps(input));
+        //System.out.println(stringUtils.stringFilter());
+        //System.out.println(stringUtils.expander());
+        //System.out.println(stringUtils.sameCharCounter());
 
     }
 }
