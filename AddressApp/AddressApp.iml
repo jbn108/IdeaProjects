@@ -8,5 +8,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.openjfx:javafx-fxml:12-ea+6" level="project" />
+    <orderEntry type="library" name="javax.xml.bind:jaxb-api:2.3.0" level="project" />
+    <orderEntry type="library" name="javax.activation:activation:1.1" level="project" />
+    <orderEntry type="library" name="org.glassfish.jaxb:jaxb-runtime:2.3.0" level="project" />
   </component>
 </module>

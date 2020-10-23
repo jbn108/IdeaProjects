@@ -27,6 +27,8 @@ public class PersonEditDialogController {
     private TextField cityField;
     @FXML
     private TextField birthdayField;
+    @FXML
+    private TextField CPRfield;
 
 
     private Stage dialogStage;
@@ -65,6 +67,7 @@ public class PersonEditDialogController {
         cityField.setText(person.getCity());
         birthdayField.setText(DateUtil.format(person.getBirthday()));
         birthdayField.setPromptText("dd.mm.yyyy");
+        CPRfield.setText(person.getCPR());
     }
 
     /**
@@ -88,6 +91,7 @@ public class PersonEditDialogController {
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));
+            person.setCPR(CPRfield.getText());
 
             okClicked = true;
             dialogStage.close();
@@ -133,6 +137,10 @@ public class PersonEditDialogController {
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
             errorMessage += "No valid city!\n";
+        }
+
+        if (CPRfield.getText() == null || CPRfield.getText().length() == 0){
+            errorMessage += "Not a valid CPR-number!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {

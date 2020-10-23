@@ -2,12 +2,11 @@ package ch.makery.address.view;
 
 import ch.makery.address.util.DateUtil;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
+
+import java.util.Optional;
 
 public class PersonOverviewController {
     @FXML
@@ -29,6 +28,8 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
+    @FXML
+    private Label CPRlabel;
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -87,6 +88,7 @@ public class PersonOverviewController {
             postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
             cityLabel.setText(person.getCity());
             birthdayLabel.setText(DateUtil.format(person.getBirthday()));
+            CPRlabel.setText(person.getCPR());
 
         } else {
             // Person is null, remove all the text.
@@ -96,6 +98,7 @@ public class PersonOverviewController {
             postalCodeLabel.setText("");
             cityLabel.setText("");
             birthdayLabel.setText("");
+            CPRlabel.setText("");
         }
     }
 
@@ -105,8 +108,25 @@ public class PersonOverviewController {
     @FXML
     private void handleDeletePerson() {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        Person selectedPerson = personTable.getItems().get(selectedIndex);
+
+        String firstName = selectedPerson.getFirstName();
+        String lastName = selectedPerson.getLastName();
+
         if (selectedIndex >= 0) {
-            personTable.getItems().remove(selectedIndex);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Confirmation delete");
+            alert.setContentText("Are you sure you want to delete the " + firstName + " " + lastName + "? This operation cannot be undone.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                // ... user chose OK
+                personTable.getItems().remove(selectedIndex);
+            } else {
+                // ... user chose CANCEL or closed the dialog
+            }
+
         } else {
             // Nothing selected.
             Alert alert = new Alert(Alert.AlertType.WARNING);

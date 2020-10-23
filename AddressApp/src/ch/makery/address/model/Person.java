@@ -1,13 +1,17 @@
 package ch.makery.address.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
+import ch.makery.address.util.LocalDateAdapter;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Model class for a Person.
@@ -22,6 +26,7 @@ public class Person {
     private final IntegerProperty postalCode;
     private final StringProperty city;
     private final ObjectProperty<LocalDate> birthday;
+    private final StringProperty CPR;
 
     /**
      * Default constructor.
@@ -41,10 +46,11 @@ public class Person {
         this.lastName = new SimpleStringProperty(lastName);
 
         // Some initial dummy data, just for convenient testing.
-        this.street = new SimpleStringProperty("some street");
-        this.postalCode = new SimpleIntegerProperty(1234);
-        this.city = new SimpleStringProperty("some city");
+        this.street = new SimpleStringProperty("");
+        this.postalCode = new SimpleIntegerProperty();
+        this.city = new SimpleStringProperty("");
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        this.CPR = new SimpleStringProperty("xxxxxx-xxxx");
     }
 
     public String getFirstName() {
@@ -107,6 +113,7 @@ public class Person {
         return city;
     }
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthday() {
         return birthday.get();
     }
@@ -115,7 +122,24 @@ public class Person {
         this.birthday.set(birthday);
     }
 
+    //@XmlJavaTypeAdapter(LocalDateAdapter.class)
+    public int calculateAge(){
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = LocalDate.from(getBirthday());
+
+        Period p = Period.between(birthday, today);
+        int age = p.getYears();
+
+        return age;
+    }
+
+    public String getCPR() { return CPR.get();}
+
+    public void setCPR (String CPR){this.CPR.set(CPR);}
+
     public ObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
     }
+
+
 }
