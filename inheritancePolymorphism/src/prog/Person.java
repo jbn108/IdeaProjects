@@ -1,13 +1,16 @@
+package prog;
+
 public class Person {
     private int id;
     String name;
     String email;
 
-    public Person(int id, String name, String email){
+    public Person(int id, String name){
         this.id = id;
         this.name = name;
-        this.email = email;
     }
+
+
 
     public int getId(){
         return id;
@@ -29,9 +32,8 @@ public class Person {
         this.email = email;
     }
 
-    @Override
     public String toString() {
-        return "Person{" +
+        return "prog.Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
