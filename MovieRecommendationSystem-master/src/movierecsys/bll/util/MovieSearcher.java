@@ -5,8 +5,11 @@
  */
 package movierecsys.bll.util;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import movierecsys.be.Movie;
+import movierecsys.bll.MovieManager;
 
 /**
  *
@@ -14,10 +17,21 @@ import movierecsys.be.Movie;
  */
 public class MovieSearcher
 {
-    public List<Movie> search(List<Movie> searchBase, String query)
-    {
-        //TODO Movie search
-        return null;
+
+    public List<Movie> search(List<Movie> searchBase, String query) throws IOException {
+
+        List<Movie> foundMovies = new ArrayList<>();
+
+        for (Movie mov : searchBase){
+            if(mov.getTitle().toLowerCase().contains(query.toLowerCase())){
+                foundMovies.add(mov);
+            }
+        }
+
+        return foundMovies;
+
     }
-    
+
+
+
 }

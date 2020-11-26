@@ -10,11 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.sql.SQLOutput;
+import java.util.*;
 import java.util.stream.Stream;
 import movierecsys.be.Movie;
 
@@ -34,12 +31,26 @@ public class FileReaderTester
     public static void main(String[] args) throws IOException
     {
         MovieDAO movieDao = new MovieDAO();
-        List<Movie> allMovs = movieDao.getAllMovies();
+        Movie newMovie = new Movie(5, 2001, "New Movie Title");
+        //movieDao.createMovie(1904, "Yeaa boi!");
+        List<Movie> allMovs = new ArrayList<>();
+        allMovs = movieDao.getAllMovies();
+
+        movieDao.updateMovie(newMovie);
+        allMovs = movieDao.getAllMovies();
+        //movieDao.deleteMovie(allMovs.get(5));
+        //movieDao.deleteMovie(allMovs.get(8));
+        //movieDao.deleteMovie(allMovs.get(2));
+        //movieDao.deleteMovie(allMovs.get(12));
+
+
+
         for (Movie allMov : allMovs)
         {
             System.out.println(allMov.getTitle());
         }
         System.out.println("Movie count: " + allMovs.size());
+        System.out.println(movieDao.getNextAvailableID());
     }
 
    

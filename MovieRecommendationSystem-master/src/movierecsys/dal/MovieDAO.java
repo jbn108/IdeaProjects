@@ -5,15 +5,19 @@
  */
 package movierecsys.dal;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.nio.*;
 
 import movierecsys.be.Movie;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 /**
  * @author pgn
@@ -21,6 +25,9 @@ import movierecsys.be.Movie;
 public class MovieDAO {
 
     private static final String MOVIE_SOURCE = "data/movie_titles.txt";
+    private static String fileStringPath = "data/movie_titles.txt";
+    private static Path filePath = Path.of(fileStringPath);
+
 
     /**
      * Gets a list of all movies in the persistence storage.
@@ -49,7 +56,6 @@ public class MovieDAO {
 
     /**
      * Reads a movie from a , s
-     *
      * @param t
      * @return
      * @throws NumberFormatException
@@ -65,8 +71,7 @@ public class MovieDAO {
                 title += "," + arrMovie[i];
             }
         }
-        Movie mov = new Movie(id, year, title);
-        return mov;
+        return new Movie(id, year, title);
     }
 
     /**
@@ -77,18 +82,20 @@ public class MovieDAO {
      * @return The object representation of the movie added to the persistence
      * storage.
      */
-    private Movie createMovie(int releaseYear, String title) {
-        //TODO Create movie.
-        return null;
-    }
 
-    /**
-     * Deletes a movie from the persistence storage.
-     *
-     * @param movie The movie to delete.
-     */
-    private void deleteMovie(Movie movie) {
-        //TODO Delete movie
+    public Movie createMovie(int releaseYear, String title) throws IOException {
+        int id = getNextAvailableID();
+        String movieString = id + "," + releaseYear + "," + title;
+        try(FileWriter fw = new FileWriter(fileStringPath, true);
+            BufferedWriter bw = new BufferedWriter(fw)
+        ){
+            bw.append("\r\n" + movieString);
+            //bw.flush();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return new Movie(id, releaseYear, title);
     }
 
     /**
@@ -97,8 +104,29 @@ public class MovieDAO {
      *
      * @param movie The updated movie.
      */
-    private void updateMovie(Movie movie) {
-        //TODO Update movies
+    public void updateMovie(Movie movie) throws IOException {
+        try{
+            File tmp = new File(movie.hashCode() + ".txt");
+            List<Movie> allMovies = getAllMovies();
+            allMovies.removeIf((Movie t) -> t.getId() == movie.getId());
+            allMovies.add(movie);
+
+            allMovies.sort(Comparator.comparingInt(Movie::getId));
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(tmp))){
+                for (Movie mov : allMovies) {
+                    bw.write(mov.getId() + "," + mov.getYear() + "," + mov.getTitle());
+                    bw.newLine();
+                }
+            }
+
+            //Overwrite the moviefile with the tmp file.
+            Files.copy(tmp.toPath(), new File(fileStringPath).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.delete(tmp.toPath());
+
+        } catch (IOException e){
+            throw new IOException("Error",e);
+        }
     }
 
     /**
@@ -107,9 +135,86 @@ public class MovieDAO {
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id) {
-        //TODO Get one Movie
+    private Movie getMovie(int id) throws IOException {
+        List<Movie> movies = new ArrayList<>();
+        movies = getAllMovies();
+
+        for(Movie mov : movies){
+            if(mov.getId() == id){
+                return mov;
+            }
+        }
         return null;
     }
+
+
+    /**
+     *  Find next available ID.
+     */
+    public int getNextAvailableID() throws IOException {
+        List<Movie> movs = getAllMovies();
+        if (movs.isEmpty() || movs == null){
+            return 1;
+        }
+        movs.sort(Comparator.comparingInt(Movie::getId));
+        return movs.get(movs.size()-1).getId() + 1;
+    }
+
+    /**
+     * Deletes a movie from the persistence storage.
+     *
+     * @param movie The movie to delete.
+     */
+    public void deleteMovie(Movie movie) throws IOException {
+        List<Movie> newMovieList = new ArrayList<>();
+        newMovieList = getAllMovies();
+        newMovieList.remove(movie);
+
+        try (FileWriter fw = new FileWriter(fileStringPath);
+        BufferedWriter bw = new BufferedWriter(fw)){
+            for (Movie mov : newMovieList){
+                bw.append(mov + "\r\n");
+            }
+            bw.flush();
+        }
+    }
+
+    // File test work
+    private static void addTextAtLine(String text, int linenumber){
+       String fileInput ="";
+        try {
+            //Read old file
+            List<String> allLines = Files.readAllLines(filePath);
+            allLines.add(linenumber, text);
+
+            //Create new temp file
+            Path tempFilePath = Path.of(fileStringPath +"temp");
+            Files.createFile(tempFilePath);
+
+            // Add all lines including new line to temp file
+            for (String line : allLines) {
+                Files.write(tempFilePath, (line + "\r\n").getBytes(), APPEND);
+            }
+
+            //Overwrite old file with temp file, and delete temp file.
+            Files.copy(tempFilePath, filePath, StandardCopyOption.REPLACE_EXISTING);
+            Files.deleteIfExists(tempFilePath);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void printFileContents(){
+        System.out.println("---------");
+        try {
+            System.out.println(Files.readString(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

@@ -5,6 +5,7 @@
  */
 package movierecsys.bll.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import movierecsys.be.Movie;
@@ -26,8 +27,7 @@ public class MovieSearcherTest
      * Test of search method, of class MovieSearcher.
      */
     @Test
-    public void testSearch()
-    {
+    public void testSearch() throws IOException {
         System.out.println("search");
         List<Movie> searchBase = new ArrayList<>();
         Movie expectedResult = new Movie(1,1994, "Shawshank Redemption");

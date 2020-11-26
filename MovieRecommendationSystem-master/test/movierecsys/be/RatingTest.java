@@ -6,8 +6,9 @@
 package movierecsys.be;
 
 import java.util.Random;
-import movierecsys.bll.exception.MovieRecSysException;
 import static org.junit.Assert.*;
+
+import movierecsys.bll.exception.MovieRecSysException;
 import org.junit.Test;
 
 /**

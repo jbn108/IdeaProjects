@@ -5,6 +5,8 @@
  */
 package movierecsys.be;
 
+import java.util.Objects;
+
 /**
  *
  * @author pgn
@@ -48,6 +50,20 @@ public class Movie
         this.year = year;
     }
     
-    
+    public String toString(){
+        return id + "," + year + "," + title;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return id == movie.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
