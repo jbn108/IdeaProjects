@@ -2,10 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -13,7 +17,7 @@
    <top>
       <VBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" text="Movie Recommendation System" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="Movie Recommendation System" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Book Antiqua Bold" size="30.0" />
                </font>
@@ -30,10 +34,49 @@
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtMovieSearcjh" prefHeight="25.0" prefWidth="296.0" promptText="search movies" />
+            <TextField fx:id="txtMovieSearch" prefHeight="25.0" prefWidth="296.0" promptText="search movies" />
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSearchButton" prefHeight="25.0" prefWidth="455.0" text="Search..." />
-            <ListView fx:id="lstMovies" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+            <ListView fx:id="lstMovies" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelectedMovie" prefHeight="293.0" prefWidth="456.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </center>
+   <bottom>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.6666717529297" minWidth="10.0" prefWidth="101.33331298828125" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="348.6666450500488" minWidth="8.666697184244782" prefWidth="115.33335367838541" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.99998728434247" minWidth="10.0" prefWidth="241.9999974568685" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="titleField" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+            <TextField fx:id="yearField" GridPane.rowIndex="3" />
+            <Label text="Title" />
+            <Label text="Year" GridPane.rowIndex="2" />
+            <Label text="Your Rating" GridPane.rowIndex="4" />
+            <TextField fx:id="ratingField" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <Label text="Average Rating" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Label text="ID" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="   " GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="idField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#handleCreate" text="Create" />
+                  <Button mnemonicParsing="false" onAction="#handleEdit" text="Edit" />
+                  <Button mnemonicParsing="false" onAction="#handleDelete" text="Delete" />
+                  <Button mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+              </buttons>
+            </ButtonBar>
+            <Label fx:id="avgRating" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+         </children>
+      </GridPane>
+   </bottom>
 </BorderPane>

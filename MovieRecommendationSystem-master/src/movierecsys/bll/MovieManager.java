@@ -19,4 +19,22 @@ public class MovieManager {
         return movieDAO.getAllMovies();
     }
 
+    public void deleteMovie(Movie movie) throws IOException {
+        movieDAO.deleteMovie(movie);
+    }
+
+    public void updateMovie(Movie movie){
+        try {
+            movieDAO.updateMovie(movie);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createMovie(int year, String title) throws IOException {
+        movieDAO.createMovie(year, title);
+    }
+
+
+
 }

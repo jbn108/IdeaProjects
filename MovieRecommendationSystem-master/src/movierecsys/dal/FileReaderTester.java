@@ -14,13 +14,13 @@ import java.sql.SQLOutput;
 import java.util.*;
 import java.util.stream.Stream;
 import movierecsys.be.Movie;
+import movierecsys.be.User;
 
 /**
  *
  * @author pgn
  */
-public class FileReaderTester
-{
+public class FileReaderTester {
 
     /**
      * Example method. This is the code I used to create the users.txt files.
@@ -28,30 +28,17 @@ public class FileReaderTester
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException
-    {
-        MovieDAO movieDao = new MovieDAO();
-        Movie newMovie = new Movie(5, 2001, "New Movie Title");
-        //movieDao.createMovie(1904, "Yeaa boi!");
-        List<Movie> allMovs = new ArrayList<>();
-        allMovs = movieDao.getAllMovies();
+    public static void main(String[] args) throws IOException {
+        UserDAO userDao = new UserDAO();
+        List<User> users = userDao.getAllUsers();
 
-        movieDao.updateMovie(newMovie);
-        allMovs = movieDao.getAllMovies();
-        //movieDao.deleteMovie(allMovs.get(5));
-        //movieDao.deleteMovie(allMovs.get(8));
-        //movieDao.deleteMovie(allMovs.get(2));
-        //movieDao.deleteMovie(allMovs.get(12));
+        //userDao.addUser(1, "Hansi");
+        //userDao.addUser(2, "Jansi");
+
+        userDao.updateUser(new User(1, "Schwansi"));
 
 
 
-        for (Movie allMov : allMovs)
-        {
-            System.out.println(allMov.getTitle());
-        }
-        System.out.println("Movie count: " + allMovs.size());
-        System.out.println(movieDao.getNextAvailableID());
+
     }
-
-   
 }

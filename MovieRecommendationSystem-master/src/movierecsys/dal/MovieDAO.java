@@ -35,7 +35,7 @@ public class MovieDAO {
      * @return List of movies.
      * @throws java.io.FileNotFoundException
      */
-    public List<Movie> getAllMovies() throws FileNotFoundException, IOException {
+    public List<Movie> getAllMovies() throws IOException {
         List<Movie> allMovies = new ArrayList<>();
         File file = new File(MOVIE_SOURCE);
 
@@ -135,7 +135,7 @@ public class MovieDAO {
      * @param id ID of the movie.
      * @return A Movie object.
      */
-    private Movie getMovie(int id) throws IOException {
+    public Movie getMovie(int id) throws IOException {
         List<Movie> movies = new ArrayList<>();
         movies = getAllMovies();
 
@@ -166,8 +166,7 @@ public class MovieDAO {
      * @param movie The movie to delete.
      */
     public void deleteMovie(Movie movie) throws IOException {
-        List<Movie> newMovieList = new ArrayList<>();
-        newMovieList = getAllMovies();
+        List<Movie> newMovieList = getAllMovies();
         newMovieList.remove(movie);
 
         try (FileWriter fw = new FileWriter(fileStringPath);

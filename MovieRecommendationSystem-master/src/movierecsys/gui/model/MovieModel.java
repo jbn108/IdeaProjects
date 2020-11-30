@@ -1,5 +1,6 @@
 package movierecsys.gui.model;
 
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import movierecsys.be.Movie;
@@ -28,14 +29,34 @@ public class MovieModel {
     public ObservableList<Movie> getMovies(){
         return movies;
     }
-    public ObservableList<Movie> getMovies2(){
-        return movies2;
+
+    public void updateMovies() throws IOException {
+        movies.clear();
+        movies.addAll(movieManager.getMovies());
+    }
+
+    public void createMovie(int year, String title) throws IOException {
+        movieManager.createMovie(year, title);
+    }
+
+    public void updateMovie(Movie movie) throws IOException {
+        movieManager.updateMovie(movie);
+    }
+
+    public void deleteMovie(Movie movie) throws IOException {
+        movieManager.deleteMovie(movie);
+        updateMovies();
     }
 
     public void searchMovies(String query) throws IOException {
-        List<Movie> foundMovies = movieSearcher.search(movies, query);
-        movies.clear();
-        movies.addAll(foundMovies);
+        if (!query.isEmpty()){
+            List<Movie> foundMovies = movieSearcher.search(movies, query);
+            movies.clear();
+            movies.addAll(foundMovies);
+        } else {
+            updateMovies();
+        }
+
     }
 
 }
